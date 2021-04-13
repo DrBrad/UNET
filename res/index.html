@@ -1,0 +1,45 @@
+<!unet
+    echo = '';
+!>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Search</title>
+        <link rel='shortcut icon' href='/icon.png'>
+        <link rel='stylesheet' href='styles.css'>
+    </head>
+    
+    <div class='navbar'>
+        <a class='navimg' href='/'><img src='icon.svg' style='float: left; width: 40px; height: 40px' draggable='false'></a>
+        <!unet if(unet.hasAccount()){ echo += "<a class='nav' href='/upload'>Upload</a>"; }else{ echo += "<a class='nav' href='/create'>Create</a>"; } !>
+        <a class='nav' href='/settings'>Settings</a>
+        <a class='nav' href='https://www.paypal.me/theanarch' target='_blank'>Donate</a>
+    </div>
+    
+    <div class='page'>
+        <center>
+            <div style='width: 60%; max-width: 600px; margin-top: 20vh; min-height: calc(80vh - 190px); color: #ffffff'>
+                <img src='icon.svg' style='width: 200px' draggable='false'><br><br>
+                <form action='' method='GET'>
+                    <div class='form_field'>
+                        <input class='search' type='text' name='q' pattern='.{1,160}' placeholder='Search' required>
+                        <label class='search' for='submit'>
+                            <svg viewbox='0 0 40 40' style='width: 20px; height: 20px; vertical-align: middle'>
+                                <path d='M4 38 L17 24 M15 16 a1 1 0 1 0 18 0 a1 1 0 1 0 -18 0' stroke='#606468' stroke-width='4' fill='transparent'></path>
+                            </svg>
+                        </label>
+                        <input id='submit' type='submit' style='display: none'>
+                    </div>
+                </form><br>
+                You are on the <b>decentralized internet</b>! Search whatever you want.
+            </div>
+        </center>
+        <div class='footer'>
+            <span style='font-size: 40px'><b>Uncentralized</b></span><br><span style='font-size: 12px'>The Decentralized Internet</span><br><br>
+            support@uncentralized.com<br>
+            bugs@uncentralized.com<br>
+        </div>
+    </div>
+</html>

@@ -1,0 +1,156 @@
+html {
+    color: #d0d0d0;
+    background-color: #333333;
+    background-image: linear-gradient(90deg, #8a0404, #fcba03);
+    font-family: sans-serif;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: #666666;
+}
+
+::selection {
+    color: #ffffff;
+    background: #7a1414;
+}
+
+::-moz-selection {
+    color: #ffffff;
+    background: #7a1414;
+}
+
+div.navbar {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: calc(100% - 30px);
+    min-width: 800px;
+    padding: 15px;
+    background-image: linear-gradient(90deg, #8a0404, #fcba03);
+    z-index: 1;
+}
+
+a.navimg {
+    float: left;
+    height: 40px;
+    padding: 0px 15px 0px 15px;
+    color: #ffffff;
+    border-radius: 5px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 40px;
+}
+
+a.nav {
+    float: left;
+    height: 40px;
+    padding: 0px 15px 0px 15px;
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 40px;
+}
+
+a.nav:hover {
+    color: #d6d6d6;
+}
+
+div.page {
+    position: absolute;
+    top: 70px;
+    left: 0px;
+    width: 100%;
+    min-width: 840px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+div.footer {
+    margin-top: 120px;
+    padding: 80px;
+    color: #ffffff;
+    background-color: #333333;
+}
+
+input[type='text'].login, input[type='email'].login, input[type='password'].login {
+	width: calc(100% - 30px);
+	padding: 15px;
+    color: #e6e6e6;
+	background-color: #3b4148;
+	border-radius: 5px;
+	background-image: none;
+	border: none;
+	outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+	transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+input[type='text'].login:focus, input[type='text'].login:hover, input[type='email'].login:focus, input[type='email'].login:hover, input[type='password'].login:focus, input[type='password'].login:hover {
+	background-color: #434a52;
+}
+
+input[type='submit'].login {
+    padding: 10px;
+    color: #e6e6e6;
+    background-color: #aa2424;
+    font-weight: 700;
+    border-radius: 5px;
+    border: none;
+    margin: 0px;
+    outline: none;
+    transition: background 0.3s;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+input[type='submit'].login:focus, input[type='submit']:hover {
+	background-color: #ca4444;
+}
+
+div.form_field {
+    margin-top: 40px;
+    background-color: #3b4148;
+    border-radius: 5px;
+}
+
+input[type='text'].search {
+    color: #e6e6e6;
+    background: transparent;
+    font-size: 16px;
+    width: calc(100% - 76px);
+    padding: 14px 0px 14px 0px;
+    border: none;
+    outline: none;
+}
+
+label.search {
+    float: right;
+    padding: 12px;
+    align-content: center;
+    cursor: pointer;
+}
+
+div.form_field:hover label.search, input[type='text'].search:focus ~ label.search {
+    background-color: #363b41;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+a.link {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+a.link:hover {
+    text-decoration: underline;
+}

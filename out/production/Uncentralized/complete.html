@@ -1,0 +1,23 @@
+<!unet
+    echo = '';
+
+    if(typeof post != 'undefined'){
+        if(post['type'] == 'DFILE'){
+            if(unet.delete(get['q']+post['name'])){
+                echo = 'Complete';
+            }
+        }else if(post['type'] == 'CDIR'){
+            if(unet.createDir(get['q']+post['name'])){
+                echo = 'Complete';
+            }
+        }else if(post['type'] == 'CVIS'){
+            if(unet.changeVisibility(get['q']+post['name'])){
+                echo = 'Complete';
+            }
+        }
+    }else if(typeof files != 'undefined'){
+        if(unet.uploadLocal(get['q'], JSON.stringify(files))){
+            echo = 'Complete';
+        }
+    }
+!>

@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Uncentralized:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Uncentralized_jar</output-path>
+    <root id="archive" name="Uncentralized.jar">
+      <element id="module-output" name="Uncentralized" />
+      <element id="extracted-dir" path="$USER_HOME$/libs/javax.activation-1.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/libs/json-20180813.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/libs/rhino-runtime-1.7.13-SNAPSHOT.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,81 @@
+<!unet
+    echo = '';
+    if(typeof post != 'undefined'){
+        if(post['k'] == post['k1']){
+            var response = unet.createDomain(post['d'], post['k'], post['e'], post['c'], post['h']);
+            if(response == '1'){
+!>
+
+<style>
+    html {
+        color: #d0d0d0;
+        font-family: sans-serif;
+    }
+</style>
+Check your email to verify!
+<script>setTimeout(function(){ window.top.location.href = '/'; }, 3000);</script>
+
+<!unet
+            }else{
+                echo += "<style> html { color: #540909; font-family: sans-serif; } </style>"+response;
+            }
+        }else{
+            echo += "<style> html { color: #540909; font-family: sans-serif; } </style>Secret keys don\'t match...";
+        }
+    }else{
+!>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Login</title>
+        <link rel='shortcut icon' href='/icon.png'>
+        <link rel='stylesheet' href='styles.css'>
+    </head>
+
+    <style>
+        iframe {
+            width: 100%;
+            border: none;
+            height: 30px;
+        }
+    </style>
+    
+    <div class='navbar'>
+        <a class='navimg' href='/'><img src='icon.svg' style='float: left; width: 40px; height: 40px' draggable='false'></a>
+        <!unet if(unet.hasAccount()){ echo += "<a class='nav' href='/upload'>Upload</a>"; }else{ echo += "<a class='nav' href='/create'>Create</a>"; } !>
+        <a class='nav' href='/settings'>Settings</a>
+        <a class='nav' href='https://www.paypal.me/theanarch' target='_blank'>Donate</a>
+    </div>
+    
+    <div class='page'>
+        <center>
+            <div style='width: 60%; max-width: 600px; margin-top: 20vh; min-height: calc(80vh - 190px)' align='right'>
+                <div style='font-size: 20px; color: #ffffff' align='left'><b>Create Domain</b></div>
+                <form action='/create' method='POST' target='hiddenFrame'>
+                    <input class='login' type='text' name='d' pattern='.{4,20}' placeholder='Domain' required>
+                    <input class='login' type='email' name='e' placeholder='Email' required>
+                    <input class='login' type='password' name='k' pattern='.{5,36}' placeholder='Secret Key' autocomplete='off' required>
+                    <input class='login' type='password' name='k1' pattern='.{5,36}' placeholder='Retype Secret Key' autocomplete='off' required>
+                    <!unet echo += unet.getCaptcha(); !>
+                    <input class='login' type='text' name='c' pattern='.{0,6}' placeholder='Captcha' autocomplete='off' required>
+                    <input class='login' type='submit' value='Submit'>
+                </form>
+                <center>
+                    <iframe name='hiddenFrame' scrolling='no'></iframe>
+                    Already have a domain? <a href='/login' class='link'>Login</a>&emsp;
+                    Forgot your key? <a href='/forgot' class='link'>Forgot Key</a>
+                </center>
+            </div>
+        </center>
+        <div class='footer'>
+            <span style='font-size: 40px'><b>Uncentralized</b></span><br><span style='font-size: 12px'>The Decentralized Internet</span><br><br>
+            support@uncentralized.com<br>
+            bugs@uncentralized.com<br>
+        </div>
+    </div>
+</html>
+<!unet
+    }
+!>

@@ -1,0 +1,168 @@
+<!unet
+    echo = '';
+
+    if(typeof post != 'undefined'){
+        unet.saveSettings(JSON.stringify(post));
+    }
+
+    var settings = JSON.parse(unet.getSettings());
+!>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Settings</title>
+        <link rel='shortcut icon' href='/icon.png'>
+        <link rel='stylesheet' href='styles.css'>
+    </head>
+
+    <style>
+        html {
+            background-color: #222222;
+            background-image: none;
+        }
+
+        div.page {
+            color: #ffffff;
+        }
+
+        div.title {
+            font-size: 2rem;
+        }
+
+        hr {
+            margin: 20px 0px 40px 0px;
+            border: 0.5px #333333 solid;
+        }
+
+        div.title2 {
+            color: #fcba03;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 40px 0px 40px 0px;
+        }
+
+        label, a.option {
+            display: block;
+            width: calc(100% - 20px);
+            color: #bbbbbb;
+            font-size: 1.1rem;
+            margin: 40px 0px 40px 20px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        label span, a.option span {
+            color: #ffffff;
+            font-size: 1.2rem;
+        }
+
+        input[type=checkbox] {
+            display: none;
+        }
+
+        i {
+            float: right;
+            height: 10px;
+            margin: -10px 2px 0px 0px;
+        }
+
+        i::before {
+            content: '';
+            display: block;
+            height: 20px;
+            width: 45px;
+            background-color: #656565;
+            border-radius: 10px;
+        }
+
+        i::after {
+            content: '';
+            display: block;
+            height: 22px;
+            width: 22px;
+            margin-top: -21px;
+            background-color: #b9b9b9;
+            border-radius: 11px;
+            transform: translateX(0px);
+            transition: transform 0.3s;
+        }
+
+        input[type=checkbox]:checked + i::before {
+            background-color: #421919;
+        }
+
+        input[type=checkbox]:checked + i::after {
+            transform: translateX(25px);
+            transition: transform 0.3s;
+            background-color: #870404;
+        }
+
+        input[type=submit] {
+            float: right;
+            margin: 10px 0px 0px 20px;
+            padding: 7px 10px 7px 10px;
+            color: #dfdfdf;
+            background-color: #4d4f51;
+            transition: background-color 0.3s;
+            border: none;
+            border-radius: 2px;
+            font-size: 1.2rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #5d5f61;
+            transition: background-color 0.3s;
+        }
+
+        input[type=text], input[type=number] {
+            float: right;
+            margin-top: -10px;
+            padding: 5px;
+            color: #dfdfdf;
+            background-color: #4d4f51;
+            border: none;
+            border-radius: 2px;
+            font-size: 16px;
+            outline-color: #6d6f71;
+        }
+    </style>
+    
+    <div class='navbar'>
+        <a class='navimg' href='/'><img src='icon.svg' style='float: left; width: 40px; height: 40px' draggable='false'></a>
+        <!unet if(unet.hasAccount()){ echo += "<a class='nav' href='/upload'>Upload</a>"; }else{ echo += "<a class='nav' href='/create'>Create</a>"; } !>
+        <a class='nav' href='/settings'>Settings</a>
+        <a class='nav' href='https://www.paypal.me/theanarch' target='_blank'>Donate</a>
+    </div>
+    
+    <div class='page'>
+        <center>
+            <div style='width: 100%; max-width: 800px; min-height: calc(100vh - 190px); padding: 20px 0px 20px 0px; text-align: left'>
+                <div class='title'>Settings</div>
+                <hr>
+                <div class='title2'>General</div>
+                <form action='/settings' method='post'>
+                    <label for='boot'><span>Start on boot</span><br>Automatically start Uncentralized when your computer boots<input id='boot' name='boot' type='checkbox' <!unet if(settings['boot'] == 'on'){ echo += 'checked'; } !>><i></i></label>
+                    <div class='title2'>Connection</div>
+                    <label for='mydev'><span>Force device only usage</span><br>Ensure that all traffic that goes through proxy is from this device<input id='mydev' name='mydev' type='checkbox' <!unet if(settings['mydev'] == 'on'){ echo += 'checked'; } !>><i></i></label>
+                    <label for='npc'><span>Change Site Host</span><br>Make this device the backend host for your site. You must disable this on all other devices<input id='npc' name='npc' type='checkbox' <!unet if(settings['npc'] == 'on'){ echo += 'checked'; } !>><i></i></label>
+                    <label for='bridge'><span>Use Bridge</span><br>Connect to Uncentralized using an alternate route<input id='bridge' name='bridge' type='text' style='width: 170px' placeholder='123.123.123.123:8080' min='10' max='22' <!unet echo += 'value="'+settings['bridge']+'"'; !>></label>
+                    <label for='port'><span>Proxy Port</span><br>Change defualt proxy port from ( 8080 )<input id='port' name='port' type='number' style='width: 70px' placeholder='8080' min='10' max='99999' <!unet echo += 'value="'+settings['port']+'"'; !>></label>
+                    <div class='title2'>Debug</div>
+                    <a class='option' href='mailto:bugs@uncentralized.com?Subject=Bugs/Error&20Report'><span>Report bug/error</span><br>Send an email of a bug or error that has occurred</a>
+                    <a class='option'><span>Version</span><br>Program build 1.0</a>
+                    <input type='submit' value='Save'>
+                </form>
+            </div>
+        </center>
+
+        <div class='footer'>
+            <span style='font-size: 40px'><b>Uncentralized</b></span><br><span style='font-size: 12px'>The Decentralized Internet</span><br><br>
+            support@uncentralized.com<br>
+            bugs@uncentralized.com<br>
+        </div>
+    </div>
+</html>

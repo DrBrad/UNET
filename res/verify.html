@@ -1,0 +1,83 @@
+<!unet
+    echo = '';
+    if(typeof get != 'undefined'){
+        var response = unet.verifyDomain(get['d'], get['s']);
+        if(response == '1'){
+!>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Verification</title>
+        <link rel='shortcut icon' href='/icon.png'>
+        <link rel='stylesheet' href='styles.css'>
+    </head>
+
+    <div class='navbar'>
+        <a class='navimg' href='/'><img src='icon.svg' style='float: left; width: 40px; height: 40px' draggable='false'></a>
+        <!unet if(unet.hasAccount()){ echo += "<a class='nav' href='/upload'>Upload</a>"; }else{ echo += "<a class='nav' href='/create'>Create</a>"; } !>
+        <a class='nav' href='/settings'>Settings</a>
+        <a class='nav' href='https://www.paypal.me/theanarch' target='_blank'>Donate</a>
+    </div>
+
+    <div class='page'>
+        <center>
+            <div style='width: 60%; max-width: 600px; margin-top: 20vh; min-height: calc(80vh - 190px); color: #ffffff'>
+                <span style='font-size: 100px'>Verification</span><br><br>
+                Congratulations your domain has been created!
+            </div>
+        </center>
+        <div class='footer'>
+            <span style='font-size: 40px'><b>Uncentralized</b></span><br><span style='font-size: 12px'>The Decentralized Internet</span><br><br>
+            support@uncentralized.com<br>
+            bugs@uncentralized.com<br>
+        </div>
+    </div>
+    <script>setTimeout(function(){ window.top.location.href = '/login'; }, 3000);</script>
+</html>
+
+<!unet
+        }else{
+            failed();
+        }
+    }else{
+        failed();
+    }
+
+    function failed(){
+!>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Verification</title>
+        <link rel='shortcut icon' href='/icon.png'>
+        <link rel='stylesheet' href='styles.css'>
+    </head>
+
+    <div class='navbar'>
+        <a class='navimg' href='/'><img src='icon.svg' style='float: left; width: 40px; height: 40px' draggable='false'></a>
+        <!unet if(unet.hasAccount()){ echo += "<a class='nav' href='/upload'>Upload</a>"; }else{ echo += "<a class='nav' href='/create'>Create</a>"; } !>
+        <a class='nav' href='/settings'>Settings</a>
+        <a class='nav' href='https://www.paypal.me/theanarch' target='_blank'>Donate</a>
+    </div>
+
+    <div class='page'>
+        <center>
+            <div style='width: 60%; max-width: 600px; margin-top: 20vh; min-height: calc(80vh - 190px); color: #ffffff'>
+                <span style='font-size: 100px'>Verification</span><br><br>
+                <!unet echo += response; !>
+            </div>
+        </center>
+        <div class='footer'>
+            <span style='font-size: 40px'><b>Uncentralized</b></span><br><span style='font-size: 12px'>The Decentralized Internet</span><br><br>
+            support@uncentralized.com<br>
+            bugs@uncentralized.com<br>
+        </div>
+    </div>
+</html>
+<!unet
+    }
+!>

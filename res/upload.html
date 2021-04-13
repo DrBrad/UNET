@@ -1,0 +1,186 @@
+<!unet
+    var pictures = [
+        'png',
+        'jpg',
+        'jpeg',
+        'gif',
+        'svg'
+    ];
+
+    var videos = [
+        'mp4',
+        'mkv',
+        'webm',
+        'flv',
+        'avi',
+        '3gp',
+        'mov',
+        'vob',
+        'wmv',
+        'ogv',
+        'm4v',
+        'm4p',
+        'mng',
+        'qt',
+        'mvb',
+        'mpg',
+        'mmpv',
+        'm2v',
+        'mp2',
+        'mmpv',
+        'm2v',
+        'svi',
+        '32g'
+    ];
+
+    var audios = [
+        'mp3',
+        'ogg'
+    ];
+
+    var archives = [
+        'zip',
+        'tar.gz',
+        'tar',
+        'rar',
+        '7zp'
+    ];
+
+    var query = '';
+    if(typeof get !== 'undefined'){
+        if(typeof get['q'] !== 'undefined'){
+            query = get['q'];
+        }
+    }
+
+    echo = "";
+!>
+<!DOCTYPE>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Upload</title>
+        <link rel='shortcut icon' href='icon.png'>
+        <link rel='stylesheet' href='ustyles.css'>
+    </head>
+
+    <div class='nav'>
+        <div class='options'>
+            <label for='cdirBool' class='cdir'>Create Folder</label>
+            <label for='upload' class='upload'>Upload</label>
+        </div>
+    </div>
+
+    <form action='/complete?q=/<!unet echo += query; !>' method='post' enctype='multipart/form-data'>
+        <input id='upload' name='upload' type='file' multiple onchange='uploadFile(this)'>
+    </form>
+
+    <div class='sidenav'>
+        <a href='/'><img src='icon.svg' style='width: 40px; height: 40px; padding: 10px'></a>
+        <a href='/settings'><img src='settings.svg'></a>
+    </div>
+
+    <div class='sidefolders'>
+        <div class='title'><!unet echo += d; !></div>
+        <div><a class='c' href='/upload'>Home</a></div>
+
+        <!unet
+            var nline = '', last = '';
+            if(query != ''){
+                var folders = query.split('/');
+
+                for(var i = 0; i < folders.length-1; i++){
+                    nline += '<hr>';
+                    last += folders[i]+'/';
+                    echo += "        <div>"+nline+"<a class='c' href='/upload?q="+last+"'>"+folders[i]+"</a></div>";
+                }
+            }
+        !>
+    </div>
+
+    <table oncontextmenu='event.preventDefault()'>
+        <thead>
+            <tr>
+                <th class='d'>File name</th>
+                <th>Mime</th>
+                <th>Visibility</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!unet
+                var json = JSON.parse(unet.pullAllFiles(query));
+
+                if(json['d'].length > 0){
+                    for(var key in json['d']){
+                        echo += "<tr key='"+json['d'][key]+"' ktype='d' oncontextmenu='optionsContext(event, this)'><td class='f'><a href='/upload?q="+query+json['d'][key]+"/'>"+json['d'][key]+"</a></td><td>Folder</td><td></td></tr>";
+                    }
+                }
+
+                if(json['f'].length > 0){
+                    for(var key in json['f']){
+                        if(typeof json['f'][key]['v'] !== 'undefined'){
+                            var extension = json['f'][key]['f'].split('.').pop();
+                            if(pictures.indexOf(extension) > -1){
+                                echo += "<tr key='"+json['f'][key]['f']+"' ktype='f' oncontextmenu='optionsContext(event, this)'><td class='i'><a href='http://"+d+".unet/"+query+json['f'][key]['f']+"' target='_blank'>"+json['f'][key]['f']+"</a></td><td>Image</td><td class='p'>Private</td></tr>";
+                            }else if(videos.indexOf(extension) > -1){
+                                echo += "<tr key='"+json['f'][key]['f']+"' ktype='f' oncontextmenu='optionsContext(event, this)'><td class='v'><a href='http://"+d+".unet/"+query+json['f'][key]['f']+"' target='_blank'>"+json['f'][key]['f']+"</a></td><td>Video</td><td class='p'>Private</td></tr>";
+                            }else if(audios.indexOf(extension) > -1){
+                                echo += "<tr key='"+json['f'][key]['f']+"' ktype='f' oncontextmenu='optionsContext(event, this)'><td class='a'><a href='http://"+d+".unet/"+query+json['f'][key]['f']+"' target='_blank'>"+json['f'][key]['f']+"</a></td><td>Audio</td><td class='p'>Private</td></tr>";
+                            }else if(archives.indexOf(extension) > -1){
+                                echo += "<tr key='"+json['f'][key]['f']+"' ktype='f' oncontextmenu='optionsContext(event, this)'><td class='z'><a href='http://"+d+".unet/"+query+json['f'][key]['f']+"' target='_blank'>"+json['f'][key]['f']+"</a></td><td>Archive</td><td class='p'>Private</td></tr>";
+                            }else{
+                                echo += "<tr key='"+json['f'][key]['f']+"' ktype='f' oncontextmenu='optionsContext(event, this)'><td class='d'><a href='http://"+d+".unet/"+query+json['f'][key]['f']+"' target='_blank'>"+json['f'][key]['f']+"</a></td><td>Document</td><td class='p'>Private</td></tr>";
+                            }
+                        }else{
+                            var extension = json['f'][key].split('.').pop();
+                            if(pictures.indexOf(extension) > -1){
+                                echo += "<tr key='"+json['f'][key]+"' ktype='f' oncontextmenu='optionsContext(event, this)'><td class='i'><a href='http://"+d+".unet/"+query+json['f'][key]+"' target='_blank'>"+json['f'][key]+"</a></td><td>Image</td><td>Public</td></tr>";
+                            }else if(videos.indexOf(extension) > -1){
+                                echo += "<tr key='"+json['f'][key]+"' ktype='f' oncontextmenu='optionsContext(event, this)'><td class='v'><a href='http://"+d+".unet/"+query+json['f'][key]+"' target='_blank'>"+json['f'][key]+"</a></td><td>Video</td><td>Public</td></tr>";
+                            }else if(audios.indexOf(extension) > -1){
+                                echo += "<tr key='"+json['f'][key]+"' ktype='f' oncontextmenu='optionsContext(event, this)'><td class='a'><a href='http://"+d+".unet/"+query+json['f'][key]+"' target='_blank'>"+json['f'][key]+"</a></td><td>Audio</td><td>Public</td></tr>";
+                            }else if(archives.indexOf(extension) > -1){
+                                echo += "<tr key='"+json['f'][key]+"' ktype='f' oncontextmenu='optionsContext(event, this)'><td class='z'><a href='http://"+d+".unet/"+query+json['f'][key]+"' target='_blank'>"+json['f'][key]+"</a></td><td>Archive</td><td>Public</td></tr>";
+                            }else{
+                                echo += "<tr key='"+json['f'][key]+"' ktype='f' oncontextmenu='optionsContext(event, this)'><td class='d'><a href='http://"+d+".unet/"+query+json['f'][key]+"' target='_blank'>"+json['f'][key]+"</a></td><td>Document</td><td>Public</td></tr>";
+                            }
+                        }
+                    }
+                }
+            !>
+        </tbody>
+    </table>
+
+    <input id='cdirBool' type='checkbox'>
+    <div class='cdir' style='z-index: 2'>
+        <div>
+            Create Folder
+            <form action='/complete?q=/<!unet echo += query; !>' method='post' target='hiddenFrame' onsubmit='event.preventDefault(); newFolder(this)'>
+                <input name='type' type='hidden' value='CDIR' required>
+                <input name='name' type='text' placeholder='Folder Name' required min='1' max='20'><br>
+                <input type='submit' value='Create'>
+                <label for='cdirBool'>Cancel</label>
+            </form>
+        </div>
+    </div>
+
+    <div id='overlay' onclick='hideOptions();' oncontextmenu='event.preventDefault(); hideOptions()'></div>
+    <div id='options' oncontextmenu='hideOptions(); event.preventDefault()'>
+        <a href=''><u>V</u>iew</a>
+        <hr>
+        <label for='cvis'><u>C</u>hange Visibility</label>
+        <hr>
+        <label for='dsub'><u>D</u>elete</label>
+    </div>
+    <form id='changeVisForm' action='/complete?q=/<!unet echo += query; !>' method='post' onsubmit='event.preventDefault(); changeVisibility(this)'></form>
+    <form id='deleteForm' action='/complete?q=/<!unet echo += query; !>' method='post' onsubmit='event.preventDefault(); deleteAny(this)'></form>
+
+    <div id='warning'><span style='font-size: 20px'>Warning!</span><br><br>Please wait for one of the tasks to finish.<br>You can only do 4 tasks at once.</div>
+
+    <script>
+        <!unet
+            echo += "var domain = '"+d+"'; var query = '"+query+"';";
+        !>
+    </script>
+    <script src='uscript.js'></script>
+</html>
