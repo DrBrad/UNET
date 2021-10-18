@@ -2,8 +2,11 @@ Uncentralized
 ========
 
 This is the first iteration of Uncentralized Internet using a system that has a centralized DNS system.
-
 This project is currently only running in Java however we plan to migrate to C in the future.
+
+Updates
+-----------
+All future updates will be based off of [KAD3](https://github.com/DrBrad/Kad3). This will result in this being obsolete and unused for any future development. Once KAD3 is complete I will create a new repoisitory for a replacment.
 
 License
 -----------
